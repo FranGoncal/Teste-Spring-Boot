@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoApplication implements ApplicationRunner {
 
 	@Autowired
+	private Fibo fiboService;
+
+	@Autowired
 	@Qualifier("nome.app")  // Corrigido o Qualifier para coincidir com o Bean
 	private String nomeaplicacao;
 
@@ -37,5 +40,12 @@ public class DemoApplication implements ApplicationRunner {
 	@GetMapping(value = "/getconta")
 	public Conta getContabyId(@RequestParam("id") long id) {
 		return new Conta(id, "Alexandre", "Castelo Branco", 123456789, 1234, 1000.0);
+	}
+
+	// Endpoint para gerar a sequência de Fibonacci
+	@GetMapping("/fibonacci")
+	public String generateFibonacci(@RequestParam("n") int n) {
+		fiboService.printFibonacci(n);
+		return "A sequência de Fibonacci para N = " + n + " foi impressa na consola!";
 	}
 }
