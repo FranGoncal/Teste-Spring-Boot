@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @SpringBootApplication
 @RestController // Define que esta classe é um controlador REST
 public class DemoApplication implements ApplicationRunner {
@@ -44,8 +46,14 @@ public class DemoApplication implements ApplicationRunner {
 
 	// Endpoint para gerar a sequência de Fibonacci
 	@GetMapping("/fibonacci")
+	public List<Long> generateFibonacci(@RequestParam("n") int n) {
+		return fiboService.getFibonacci(n);
+	}
+	/*
 	public String generateFibonacci(@RequestParam("n") int n) {
 		fiboService.printFibonacci(n);
 		return "A sequência de Fibonacci para N = " + n + " foi impressa na consola!";
 	}
+	*/
+
 }
